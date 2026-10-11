@@ -1,0 +1,28 @@
+﻿{
+    "intended_repository":  "alixixialy/codeql-autofix-demo",
+    "sample_type":  "constructed classroom fixture; not a benchmark",
+    "remote_repository_created":  true,
+    "repository_url":  "https://github.com/alixixialy/codeql-autofix-demo",
+    "baseline_commit":  null,
+    "codeql_run_url":  null,
+    "alert_url":  null,
+    "expected_rule_id":  "js/reflected-xss",
+    "local_codeql_baseline":  {
+                                  "cli_version":  "2.27.2",
+                                  "javascript_query_pack_version":  "2.4.7",
+                                  "query_suite":  "javascript-code-scanning.qls",
+                                  "alert_count":  1,
+                                  "rule_id":  "js/reflected-xss",
+                                  "location":  "src/app.js:11",
+                                  "sarif":  "local-evidence/baseline.sarif"
+                              },
+    "autofix_generation_succeeded":  false,
+    "autofix_description":  null,
+    "fix_branch":  null,
+    "fix_commit":  null,
+    "pull_request_url":  null,
+    "functional_tests":  "passed locally: 3 tests on Node.js v24.17.0",
+    "security_test_before_fix":  "failed locally as expected: untrusted input becomes an HTML element",
+    "security_test_after_fix":  "pending",
+    "codeql_after_fix":  "pending"
+}
