@@ -1,5 +1,6 @@
 // Intentionally vulnerable teaching example. No public server is started.
 const express = require('express');
+const escape = require('escape-html');
 const app = express();
 
 app.get('/health', (_req, res) => {
@@ -12,7 +13,7 @@ app.get('/greeting', (req, res) => {
 });
 
 app.get('/preview', (req, res) => {
-  const message = req.query.message;
+  const message = escape(String(req.query.message || ''));
   res.send('<p>' + message + '</p>');
 });
 
