@@ -3,9 +3,9 @@
     "sample_type":  "constructed classroom fixture; not a benchmark",
     "remote_repository_created":  true,
     "repository_url":  "https://github.com/alixixialy/codeql-autofix-demo",
-    "baseline_commit":  null,
-    "codeql_run_url":  null,
-    "alert_url":  null,
+    "baseline_commit":  "f61b6463e51359117430b0ab230a4019f2ddedf3",
+    "codeql_run_url":  "https://github.com/alixixialy/codeql-autofix-demo/actions/runs/38136873556",
+    "alert_url":  "https://github.com/alixixialy/codeql-autofix-demo/security/code-scanning/1",
     "expected_rule_id":  "js/reflected-xss",
     "local_codeql_baseline":  {
                                   "cli_version":  "2.27.2",
@@ -24,5 +24,20 @@
     "functional_tests":  "passed locally: 3 tests on Node.js v24.17.0",
     "security_test_before_fix":  "failed locally as expected: untrusted input becomes an HTML element",
     "security_test_after_fix":  "pending",
-    "codeql_after_fix":  "pending"
+    "codeql_after_fix":  "pending",
+    "autofix_attempts":  [
+                             {
+                                 "baseline_commit":  "f61b6463e51359117430b0ab230a4019f2ddedf3",
+                                 "status":  "error",
+                                 "description":  null,
+                                 "requested_at":  "2026-10-11T11:51:19.620499Z"
+                             },
+                             {
+                                 "baseline_commit":  "f61b6463e51359117430b0ab230a4019f2ddedf3",
+                                 "operation":  "retry",
+                                 "message":  "The autofix for this alert is invalid.",
+                                 "http_status":  422
+                             }
+                         ],
+    "context_adjustment":  "Normalize the query value to a string and declare escape-html as a direct dependency. The vulnerable HTML concatenation is retained for a fresh generation attempt; the cause of the previous service error is unknown."
 }

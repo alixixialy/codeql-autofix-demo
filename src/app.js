@@ -7,7 +7,7 @@ app.get('/health', (_req, res) => {
 });
 
 app.get('/greeting', (req, res) => {
-  const name = req.query.name || 'World';
+  const name = String(req.query.name || 'World');
   res.send('<h1>Hello, ' + name + '</h1>');
 });
 

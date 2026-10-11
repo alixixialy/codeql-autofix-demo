@@ -9,6 +9,7 @@
     "test:security": "node --test test/security.test.js"
   },
   "dependencies": {
+    "escape-html": "1.0.3",
     "express": "5.3.0"
   }
 }
