@@ -11,4 +11,9 @@ app.get('/greeting', (req, res) => {
   res.send('<h1>Hello, ' + name + '</h1>');
 });
 
+app.get('/preview', (req, res) => {
+  const message = req.query.message;
+  res.send('<p>' + message + '</p>');
+});
+
 module.exports = app;

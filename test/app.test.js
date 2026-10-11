@@ -19,3 +19,9 @@ test('missing name keeps the default greeting', () => withServer(async (base) =>
   const response = await fetch(`${base}/greeting`);
   assert.equal(await response.text(), '<h1>Hello, World</h1>');
 }));
+
+test('preview retains its ordinary text and paragraph markup', () => withServer(async (base) => {
+  const response = await fetch(`${base}/preview?message=Classroom`);
+  assert.equal(response.status, 200);
+  assert.equal(await response.text(), '<p>Classroom</p>');
+}));
