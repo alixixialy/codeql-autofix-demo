@@ -4,9 +4,21 @@
 
 这是独立构造的 Express 教学样例，不是 OWASP NodeGoat，也不用于比较工具检测率。基线代码故意保留反射型 XSS；应用仅导出 Express 对象，测试时短暂监听本机回环地址。
 
+## 实测结果与代码来源
+
+2026-10-11，`alixixialy` 已在本公开仓库实际获得经典 Copilot Autofix 建议。成功对象为 [`/preview` 的第 3 条告警](https://github.com/alixixialy/codeql-autofix-demo/security/code-scanning/3)，服务返回 `status: success`，解释原文保存在 [`docs/autofix-result.json`](docs/autofix-result.json)。首次对另一条告警生成失败及后续重试记录也保留在证据中。
+
+| 版本 | 来源与验证范围 |
+| --- | --- |
+| [扫描基线 `da53ad6`](https://github.com/alixixialy/codeql-autofix-demo/commit/da53ad661cb65974bb8ba8fce430f3081613210e) | 两个故意保留 XSS 的接口；功能测试通过，两个安全用例失败。 |
+| [原始 Autofix `5f6ef3b`](https://github.com/alixixialy/codeql-autofix-demo/commit/5f6ef3b19eda3f191b8dce5ccbad29c77c5b6139) | GitHub Autofix 只修改 `/preview`；该安全用例通过，`/greeting` 仍失败。 |
+| 当前修复分支 | 助手审阅后将同样的 HTML 输出转义补充到 `/greeting`，并将安全测试加入 CI。后续修改不冒充 Autofix 原始生成内容。 |
+
+审阅时还发现，Autofix 将 `/preview` 缺少参数时的文本从 `undefined` 改为空字符串；这里接受该变化，并增加默认值测试。助手已审阅代码差异，用户人工审阅仍待完成。验证状态和运行链接以 [`docs/verification.json`](docs/verification.json) 及 PR 检查为准。
+
 ## 代码与预期告警
 
-`src/app.js` 的 `/greeting` 从 `req.query.name` 取得不可信输入，将其直接拼入 HTML 响应。预期规则为 `js/reflected-xss`。是否检出和能否获得 Autofix 建议，以实际扫描与生成结果为准。
+基线中，`src/app.js` 的 `/greeting` 和 `/preview` 从请求参数取得不可信输入，将其直接拼入 HTML 响应。CodeQL 实际报告规则 `js/reflected-xss`；当前分支在 HTML 文本输出前使用 `escape-html` 编码。
 
 ## 本地验证
 
@@ -18,7 +30,7 @@ npm test
 npm run test:security
 ```
 
-功能测试检查健康接口、普通姓名和默认姓名。安全回归测试检查用户提供的 HTML 是否被转义，并保留原有问候页面；**在漏洞基线上预期失败，完成有效修复后应通过**。测试只使用被动 HTML 标记，不执行攻击脚本。
+功能测试检查健康接口、两个接口的普通输入和默认值。安全回归测试检查用户提供的 HTML 是否被转义，并保留原有页面结构；**在漏洞基线上预期失败，当前修复分支应通过**。测试只使用被动 HTML 标记，不执行攻击脚本。
 
 ## GitHub 操作
 

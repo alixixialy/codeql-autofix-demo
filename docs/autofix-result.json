@@ -1,0 +1,5 @@
+﻿{
+    "status":  "success",
+    "description":  "To fix reflected XSS here, apply contextual output encoding for HTML content before writing user-controlled data into HTML responses. In Express, a standard and safe approach is to use the well-known `escape-html` package and escape any untrusted value before concatenating into HTML strings.\n\nBest fix with minimal functional change:\n- Edit `src/app.js`.\n- Add `const escape = require(\u0027escape-html\u0027);` near existing imports.\n- In `/preview`, convert `req.query.message` to a string default (to preserve output stability) and escape it before interpolation:\n  - from: `const message = req.query.message;`\n  - to: `const message = escape(String(req.query.message || \u0027\u0027));`\n- Keep response shape the same (`\u003cp\u003e...\u003c/p\u003e`) so existing behavior is preserved except unsafe HTML is now rendered harmlessly as text.\n",
+    "started_at":  "2026-10-11T12:10:21.234450Z"
+}

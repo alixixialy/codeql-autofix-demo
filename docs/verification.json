@@ -3,9 +3,9 @@
     "sample_type":  "constructed classroom fixture; not a benchmark",
     "remote_repository_created":  true,
     "repository_url":  "https://github.com/alixixialy/codeql-autofix-demo",
-    "baseline_commit":  "f61b6463e51359117430b0ab230a4019f2ddedf3",
+    "baseline_commit":  "da53ad661cb65974bb8ba8fce430f3081613210e",
     "codeql_run_url":  "https://github.com/alixixialy/codeql-autofix-demo/actions/runs/38136873556",
-    "alert_url":  "https://github.com/alixixialy/codeql-autofix-demo/security/code-scanning/1",
+    "alert_url":  "https://github.com/alixixialy/codeql-autofix-demo/security/code-scanning/3",
     "expected_rule_id":  "js/reflected-xss",
     "local_codeql_baseline":  {
                                   "cli_version":  "2.27.2",
@@ -16,15 +16,15 @@
                                   "location":  "src/app.js:11",
                                   "sarif":  "local-evidence/baseline.sarif"
                               },
-    "autofix_generation_succeeded":  false,
-    "autofix_description":  null,
-    "fix_branch":  null,
-    "fix_commit":  null,
+    "autofix_generation_succeeded":  true,
+    "autofix_description":  "See docs/autofix-result.json for the exact GitHub-generated explanation.",
+    "fix_branch":  "copilot-autofix-xss",
+    "fix_commit":  "5f6ef3b19eda3f191b8dce5ccbad29c77c5b6139",
     "pull_request_url":  null,
-    "functional_tests":  "passed locally: 3 tests on Node.js v24.17.0",
-    "security_test_before_fix":  "failed locally as expected: untrusted input becomes an HTML element",
-    "security_test_after_fix":  "pending",
-    "codeql_after_fix":  "pending",
+    "functional_tests":  "passed locally: 5 tests on Node.js v24.17.0",
+    "security_test_before_fix":  "Both greeting and preview cases fail on baseline da53ad6. Raw Autofix makes preview pass while greeting still fails.",
+    "security_test_after_fix":  "passed locally: both security regression tests after the separately identified assistant follow-up",
+    "codeql_after_fix":  "pending GitHub PR analysis",
     "autofix_attempts":  [
                              {
                                  "baseline_commit":  "f61b6463e51359117430b0ab230a4019f2ddedf3",
@@ -37,7 +37,25 @@
                                  "operation":  "retry",
                                  "message":  "The autofix for this alert is invalid.",
                                  "http_status":  422
+                             },
+                             {
+                                 "baseline_commit":  "da105b89ef03dc7b9bdf849ffd7d4a19d89c3da7",
+                                 "operation":  "retry after context adjustment",
+                                 "message":  "The autofix for this alert is invalid.",
+                                 "http_status":  422
+                             },
+                             {
+                                 "baseline_commit":  "da53ad661cb65974bb8ba8fce430f3081613210e",
+                                 "status":  "success",
+                                 "alert_number":  3,
+                                 "description_file":  "docs/autofix-result.json",
+                                 "requested_at":  "2026-10-11T12:10:21.234450Z"
                              }
                          ],
-    "context_adjustment":  "Normalize the query value to a string and declare escape-html as a direct dependency. The vulnerable HTML concatenation is retained for a fresh generation attempt; the cause of the previous service error is unknown."
+    "context_adjustment":  "Normalize the query value to a string and declare escape-html as a direct dependency. The vulnerable HTML concatenation is retained for a fresh generation attempt; the cause of the previous service error is unknown.",
+    "review":  {
+                   "human_review":  "pending",
+                   "follow_up":  "The assistant applied the same escaping to /greeting in a separate commit; GitHub Autofix itself only changed /preview.",
+                   "assistant_code_review":  "completed"
+               }
 }

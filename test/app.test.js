@@ -25,3 +25,8 @@ test('preview retains its ordinary text and paragraph markup', () => withServer(
   assert.equal(response.status, 200);
   assert.equal(await response.text(), '<p>Classroom</p>');
 }));
+
+test('preview has an empty default message after Autofix', () => withServer(async (base) => {
+  const response = await fetch(`${base}/preview`);
+  assert.equal(await response.text(), '<p></p>');
+}));
